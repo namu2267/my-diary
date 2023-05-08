@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Modal from "./component/Modal";
-import { createArticleApi } from "./api/Api";
+import {
+  createArticleApi,
+  getArticleApi,
+  getDetailArticleApi,
+} from "./api/Api";
 
 function App() {
   let [modal, setModal] = useState(false);
   let [modalTitle, setModalTitle] = useState(0);
+  let [serverData, setServerData] = useState([]);
   let [inputs, setInputs] = useState({
     title: "",
     content: "",
@@ -19,15 +24,24 @@ function App() {
     });
   };
 
+  useEffect(() => {
+    getArticleApi().then((res: any) => {
+      setServerData(res.data);
+    });
+  }, []);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createArticleApi(inputs);
+    console.log(inputs);
   };
+
+  console.log(serverData);
 
   return (
     <div className="App">
       <div className="black-nav">
-        <h4>ReactBlog</h4>
+        <h4>My-diary</h4>
       </div>
 
       {/* {title?.map(function (item, i) {
@@ -47,7 +61,7 @@ function App() {
         );
       })} */}
       <form onSubmit={handleSubmit}>
-        <input type="text" name="inputTitle" onChange={handleChange} required />
+        <input type="text" name="title" onChange={handleChange} required />
         <input
           type="text"
           name="content"
