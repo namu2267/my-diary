@@ -1,18 +1,13 @@
-import React, { useState } from "react";
-import Modal from "./Modal";
+import { useNavigate } from "react-router-dom";
+import { DiaryListProps } from "../types/DiaryListProps";
+import DetailPage from "../Pages/DetailPage";
 
-export default function DiaryItem(props: any) {
-  let [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
+export default function DiaryItem({ id, title, content }: DiaryListProps) {
+  const navigate = useNavigate();
+  console.log("id", id);
   return (
-    <div onClick={showModal}>
-      <h5>{props.title}</h5>
-      <h5>{props.content}</h5>
-      {isModalOpen === true ? <Modal /> : null}
-    </div>
+    <div
+      onClick={() => navigate(`/detail/:${id}`, { state: { title, content } })}
+    ></div>
   );
 }
