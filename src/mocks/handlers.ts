@@ -29,13 +29,17 @@ export const handlers = [
   rest.get("/posts/:id", (req, res, ctx) => {
     const { id } = req.params;
     const data = diaryMockData.find((item) => item.id === Number(id));
+
     console.log("detailId ===>", id);
+
     if (!data) {
       return res(
         ctx.status(404),
         ctx.json({ message: `Post with id ${id} not found.` })
       );
     }
+
+    return res(ctx.status(200), ctx.json(data));
   }),
 
   //다이어리 목록 추가

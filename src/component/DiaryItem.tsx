@@ -6,7 +6,7 @@ export default function DiaryItem({ id, title, content }: DiaryListTypes) {
   console.log("id콘솔", id);
   return (
     <div
-      onClick={() => navigate(`/posts/:${id}`, { state: { title, content } })}
+      onClick={() => navigate(`/posts/${id}`, { state: { title, content } })}
     >
       <div>
         <span>title: {title}</span>
