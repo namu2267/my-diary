@@ -1,14 +1,14 @@
 import DiaryItem from "./DiaryItem";
-import { DiaryListProps } from "../types/DiaryListProps";
+import { DiaryListTypes } from "../types/DiaryListTypes";
 
 export default function DiaryList({
   serverData,
 }: {
-  serverData: DiaryListProps[];
+  serverData: DiaryListTypes[];
 }) {
   return (
     <div>
-      {serverData.map((item: DiaryListProps) => (
+      {serverData.map((item: DiaryListTypes) => (
         <DiaryItem
           key={item.id}
           id={item.id}

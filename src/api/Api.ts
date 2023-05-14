@@ -17,21 +17,39 @@ export const getArticleApi = () => {
   return response;
 };
 
+//mock데이터를 이용하여 다이어리목록 가져오기
+export const getMockArticleApi = async () => {
+  return await axios.get("/posts");
+};
+
+//mock데이터를 이용하여 다이어리목록 업데이트
+export const createMockArticleApi = async (
+  id: number,
+  article: ArticleTypes
+) => {
+  return await axios.post(`/posts/:${id}`, article);
+};
+
+//mock데이터를 이용하여 다이어리의 디테일 페이지를 가져온다.
+export const getDetailMockArticleApi = async (id: number) => {
+  return await axios.get(`/posts/:${id}`);
+};
+
 //article의 detail을 가져온다.
 export const getDetailArticleApi = (id: number) => {
-  const response = instance.get(`/${id}`);
+  const response = instance.get(`/:${id}`);
   return response;
 };
 
 // article 수정
 export const updateArticleApi = (id: number, article: ArticleTypes) => {
-  const response = instance.patch(`/${id}`, article);
+  const response = instance.patch(`/:${id}`, article);
   return response;
 };
 
 // article 삭제하기
 export const deleteArticleApi = (id: number) => {
-  const response = instance.delete(`/${id}`);
+  const response = instance.delete(`/:${id}`);
   return response;
 };
 

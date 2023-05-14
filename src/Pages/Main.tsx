@@ -6,13 +6,14 @@ import {
   createArticleApi,
   getArticleApi,
   getDetailArticleApi,
+  getMockArticleApi,
 } from "../api/Api";
 import { ArticleTypes } from "../types/ArticleTypes";
-import { DiaryListProps } from "../types/DiaryListProps";
+import { DiaryListTypes } from "../types/DiaryListTypes";
 import DetailPage from "./DetailPage";
 
 function App() {
-  const [serverData, setServerData] = useState<DiaryListProps[]>([]);
+  const [serverData, setServerData] = useState<DiaryListTypes[]>([]);
 
   const [inputs, setInputs] = useState({
     title: "",
@@ -27,8 +28,16 @@ function App() {
     });
   };
 
+  // 백엔드 API로 데이터 가져옴
+  // useEffect(() => {
+  //   getArticleApi().then((res: any) => {
+  //     setServerData(res.data);
+  //   });
+  // }, []);
+
+  //mock API로 데이터를 가져옴
   useEffect(() => {
-    getArticleApi().then((res: any) => {
+    getMockArticleApi().then((res) => {
       setServerData(res.data);
     });
   }, []);
@@ -39,7 +48,7 @@ function App() {
     console.log(inputs);
   };
 
-  console.log(serverData);
+  console.log("serverData====>", serverData);
 
   return (
     <>

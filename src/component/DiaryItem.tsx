@@ -1,13 +1,17 @@
 import { useNavigate } from "react-router-dom";
-import { DiaryListProps } from "../types/DiaryListProps";
-import DetailPage from "../Pages/DetailPage";
+import { DiaryListTypes } from "../types/DiaryListTypes";
 
-export default function DiaryItem({ id, title, content }: DiaryListProps) {
+export default function DiaryItem({ id, title, content }: DiaryListTypes) {
   const navigate = useNavigate();
-  console.log("id", id);
+  console.log("id콘솔", id);
   return (
     <div
-      onClick={() => navigate(`/detail/:${id}`, { state: { title, content } })}
-    ></div>
+      onClick={() => navigate(`/posts/:${id}`, { state: { title, content } })}
+    >
+      <div>
+        <span>title: {title}</span>
+        <span>content: {content}</span>
+      </div>
+    </div>
   );
 }

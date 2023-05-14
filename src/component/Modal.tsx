@@ -1,5 +1,3 @@
-import { DiaryListProps } from "../types/DiaryListProps";
-
 export default function Modal(props: any) {
   console.log(props);
   return (
