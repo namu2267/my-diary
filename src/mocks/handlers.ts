@@ -30,8 +30,6 @@ export const handlers = [
     const { id } = req.params;
     const data = diaryMockData.find((item) => item.id === Number(id));
 
-    console.log("detailId ===>", id);
-
     if (!data) {
       return res(
         ctx.status(404),
@@ -47,6 +45,22 @@ export const handlers = [
     const { title, content } = req.body as DiaryListTypes;
     const newDiary = { id: diaryMockData.length + 1, title, content };
     diaryMockData.push(newDiary);
-    return res(ctx.status(201), ctx.json(newDiary));
+    return res(ctx.status(201), ctx.json(req.body));
+  }),
+
+  //다이어리 목록 삭제
+  rest.delete(`/posts/:id`, (req, res, ctx) => {
+    const { id } = req.params;
+    const index = diaryMockData.findIndex((item) => item.id === Number(id));
+    if (index === -1) {
+      return res(
+        ctx.status(404),
+        ctx.json({ message: `Post with id ${id} not found.` })
+      );
+    }
+
+    const deletedItem = diaryMockData.splice(index, 1)[0];
+
+    return res(ctx.status(200), ctx.json(deletedItem));
   }),
 ];

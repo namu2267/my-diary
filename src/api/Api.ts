@@ -33,6 +33,11 @@ export const getDetailMockArticleApi = async (id: number) => {
   return await axios.get(`/posts/${id}`);
 };
 
+//mock데이터를 이용하여 다이어리목록 삭제
+export const deleteMockArticleApi = async (id: number) => {
+  return await axios.delete(`/posts/${id}`);
+};
+
 //article의 detail을 가져온다.
 export const getDetailArticleApi = (id: number) => {
   const response = instance.get(`/${id}`);
