@@ -43,9 +43,10 @@ export const handlers = [
   }),
 
   //다이어리 목록 추가
-  rest.post("/posts/:id", (req, res, ctx) => {
-    const { id, title, content } = req.body as DiaryListTypes;
-    diaryMockData.push({ id, title, content });
-    return res(ctx.status(201));
+  rest.post("/posts", (req, res, ctx) => {
+    const { title, content } = req.body as DiaryListTypes;
+    const newDiary = { id: diaryMockData.length + 1, title, content };
+    diaryMockData.push(newDiary);
+    return res(ctx.status(201), ctx.json(newDiary));
   }),
 ];

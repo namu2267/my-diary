@@ -6,8 +6,8 @@ const instance = axios.create({
 });
 
 // 프론트에서 데이터를 담아서 백으로 보낼때
-export const createArticleApi = (article: ArticleTypes) => {
-  const response = instance.post("/", article);
+export const createArticleApi = async (article: ArticleTypes) => {
+  const response = await instance.post("/", article);
   return response;
 };
 
@@ -23,11 +23,9 @@ export const getMockArticleApi = async () => {
 };
 
 //mock데이터를 이용하여 다이어리목록 업데이트
-export const createMockArticleApi = async (
-  id: number,
-  article: ArticleTypes
-) => {
-  return await axios.post(`/posts/${id}`, article);
+export const createMockArticleApi = async (article: ArticleTypes) => {
+  // const response = await instance.post("/", article);
+  return await axios.post("/posts", article);
 };
 
 //mock데이터를 이용하여 다이어리의 디테일 페이지를 가져온다.

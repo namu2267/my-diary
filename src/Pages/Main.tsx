@@ -7,6 +7,7 @@ import {
   getArticleApi,
   getDetailArticleApi,
   getMockArticleApi,
+  createMockArticleApi,
 } from "../api/Api";
 import { ArticleTypes } from "../types/ArticleTypes";
 import { DiaryListTypes } from "../types/DiaryListTypes";
@@ -29,22 +30,33 @@ function App() {
   };
 
   // 백엔드 API로 데이터 가져옴
-  // useEffect(() => {
-  //   getArticleApi().then((res: any) => {
-  //     setServerData(res.data);
-  //   });
-  // }, []);
-
-  //mock API로 데이터를 가져옴
   useEffect(() => {
-    getMockArticleApi().then((res) => {
+    getArticleApi().then((res: any) => {
       setServerData(res.data);
     });
   }, []);
 
+  // //mock API로 데이터를 가져옴
+  // useEffect(() => {
+  //   getMockArticleApi().then((res) => {
+  //     setServerData(res.data);
+  //   });
+  // }, []);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createArticleApi(inputs);
+    createArticleApi(inputs)
+      .then(() => {
+        // 생성이 성공한 뒤 서버 데이터를 다시 가져옴
+        getArticleApi().then((res: any) => {
+          setServerData(res.data);
+        });
+        // createMockArticleApi(inputs);
+      })
+      .catch((error) => {
+        // 생성 실패 시 에러처리
+        console.log(error);
+      });
     console.log(inputs);
   };
 
@@ -81,7 +93,13 @@ function App() {
         );
       })} */}
         <form onSubmit={handleSubmit}>
-          <input type="text" name="title" onChange={handleChange} required />
+          <input
+            type="text"
+            name="title"
+            onChange={handleChange}
+            placeholder="제목을 입력하세요"
+            required
+          />
           <input
             type="text"
             name="content"
@@ -89,7 +107,7 @@ function App() {
             onChange={handleChange}
             required
           />
-          <button>글등록</button>
+          <button type="submit">글등록</button>
         </form>
       </div>
     </>
